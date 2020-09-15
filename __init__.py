@@ -14,7 +14,7 @@ __prettyname__ = "NASA ADS"
 __version__ = "1.0"
 __trigger__ = "ads "
 __author__ = "Dan Foreman-Mackey"
-__dependencies__ = ["ads"]
+__dependencies__ = []
 
 icon_path = albert.iconLookup("adsabs")
 if not icon_path:

@@ -9,9 +9,9 @@ import os
 import re
 import shlex
 
-__iid__ = "PythonInterface/v0.1"
+__iid__ = "PythonInterface/v0.2"
 __prettyname__ = "NASA ADS"
-__version__ = "1.0"
+__version__ = "1.1"
 __trigger__ = "ads "
 __author__ = "Dan Foreman-Mackey"
 __dependencies__ = []
@@ -55,6 +55,10 @@ def parse_query_string(query):
 
 def handleQuery(query):
     if not query.isTriggered:
+        return None
+
+    stripped = query.string.strip()
+    if not stripped:
         return albert.Item(
             id=__prettyname__,
             icon=icon_path,
@@ -63,14 +67,13 @@ def handleQuery(query):
             completion=query.rawString,
         )
 
-    stripped = query.string.strip()
     query_string = parse_query_string(stripped)
     return [
         albert.Item(
             id=__prettyname__,
             icon=icon_path,
             text="Sorted by date",
-            subtext="Execute search: " + query_string,
+            subtext=query_string,
             completion=query.rawString,
             actions=[
                 albert.UrlAction(
@@ -82,8 +85,23 @@ def handleQuery(query):
         albert.Item(
             id=__prettyname__,
             icon=icon_path,
+            text="Sorted by popularity",
+            subtext=query_string,
+            completion=query.rawString,
+            actions=[
+                albert.UrlAction(
+                    "Search on the web",
+                    "https://ui.adsabs.harvard.edu/search/q="
+                    + query_string
+                    + "&sort=classic_factor desc",
+                )
+            ],
+        ),
+        albert.Item(
+            id=__prettyname__,
+            icon=icon_path,
             text="Sorted by citation count",
-            subtext="Execute search: " + query_string,
+            subtext=query_string,
             completion=query.rawString,
             actions=[
                 albert.UrlAction(

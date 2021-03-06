@@ -4,17 +4,15 @@
 
 Synopsis: <trigger> <query>"""
 
-import albertv0 as albert
+import albert
 import os
 import re
 import shlex
 
-__iid__ = "PythonInterface/v0.2"
-__prettyname__ = "NASA ADS"
-__version__ = "1.1"
-__trigger__ = "ads "
-__author__ = "Dan Foreman-Mackey"
-__dependencies__ = []
+__title__ = "NASA ADS"
+__version__ = "0.4.0"
+__triggers__ = "ads "
+__authors__ = ["Dan Foreman-Mackey"]
 
 icon_path = albert.iconLookup("adsabs")
 if not icon_path:
@@ -60,9 +58,9 @@ def handleQuery(query):
     stripped = query.string.strip()
     if not stripped:
         return albert.Item(
-            id=__prettyname__,
+            id=__title__,
             icon=icon_path,
-            text=__prettyname__,
+            text=__title__,
             subtext="Search NASA ADS",
             completion=query.rawString,
         )
@@ -70,7 +68,7 @@ def handleQuery(query):
     query_string = parse_query_string(stripped)
     return [
         albert.Item(
-            id=__prettyname__,
+            id=__title__,
             icon=icon_path,
             text="Sorted by date",
             subtext=query_string,
@@ -83,7 +81,7 @@ def handleQuery(query):
             ],
         ),
         albert.Item(
-            id=__prettyname__,
+            id=__title__,
             icon=icon_path,
             text="Sorted by popularity",
             subtext=query_string,
@@ -98,7 +96,7 @@ def handleQuery(query):
             ],
         ),
         albert.Item(
-            id=__prettyname__,
+            id=__title__,
             icon=icon_path,
             text="Sorted by citation count",
             subtext=query_string,
